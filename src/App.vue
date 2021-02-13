@@ -19,6 +19,9 @@
         <li class="nav-item">
           <router-link v-if="currentUser" to="/user" class="nav-link">User</router-link>
         </li>
+          <li class="nav-item">
+          <router-link v-if="currentUser" to="/product" class="nav-link">Product</router-link>
+        </li>
       </div>
 
       <div v-if="!currentUser" class="navbar-nav ml-auto">
@@ -49,9 +52,7 @@
       </div>
     </nav>
 
-    <div class="container">
       <router-view />
-    </div>
   </div>
 </template>
 
