@@ -5,6 +5,7 @@ import store from './store';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import VeeValidate from 'vee-validate';
+import vuetify from '@/plugins/vuetify' // path to vuetify export
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import {
@@ -19,6 +20,7 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+// import vuetify from './plugins/vuetify';
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
@@ -36,5 +38,6 @@ Vue.component('font-awesome-icon',FontAwesomeIcon);
 new Vue({
   router,
   store,
-  render: h => h(App),
+  vuetify,
+  render: h => h(App)
 }).$mount('#app')

@@ -1,6 +1,6 @@
 <template>
   <div class="col-12 text-center">
-    <h2>รายการสินค้า</h2>
+    <h2>รายการสินค้า {{numcart}}</h2>
     <br>
     <div class="row">
       <div
@@ -25,7 +25,7 @@
                 <span class="sr-only">unread messages</span></b-badge
               >
          
-          <b-button href="#" variant="outline-primary">
+          <b-button @click.prevent="addcart(productlists)" variant="outline-primary">
           
                   <b-icon icon="cart" font-scale="1"></b-icon>
 Cart</b-button>
@@ -40,12 +40,21 @@ export default {
   data() {
     return {
       productlist: "",
+      cart:[],
+      numcart:0
     };
   },
-  methods() {},
+  methods:{
+    addcart(item){
+      this.cart.push(item)
+      this.numcart = this.cart.length
+      // console.log(this.cart);
+    }
+
+  },
   mounted() {
     ProductService.getProduct().then((responnse) => {
-      console.log(responnse.data);
+      // console.log(responnse.data);
       this.productlist = responnse.data;
     });
   },
