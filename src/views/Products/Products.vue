@@ -1,5 +1,15 @@
 <template>
   <div class="col-12 text-center">
+  <v-row >
+  <v-col class="col-4"></v-col>
+  <v-col class="col-4"></v-col>
+  <v-col class="col-4">
+  <v-icon large class="">mdi-basket</v-icon>
+  {{numcart}}
+  </v-col>
+
+
+  </v-row>
     <h2>รายการสินค้า {{numcart}}</h2>
     <br>
     <div class="row">
@@ -25,12 +35,13 @@
                 <span class="sr-only">unread messages</span></b-badge
               >
          
-          <b-button @click.prevent="addcart(productlists)" variant="outline-primary">
+          <v-btn color="success" @click.prevent="addcart(productlists)" variant="outline-primary">
           
-                  <b-icon icon="cart" font-scale="1"></b-icon>
-Cart</b-button>
+                  <v-icon  font-scale="1">mdi-cart-plus</v-icon></v-btn>
         </b-card>
       </div>
+      {{currentCart}}
+   
     </div>
   </div>
 </template>
@@ -41,21 +52,39 @@ export default {
     return {
       productlist: "",
       cart:[],
-      numcart:0
+      numcart:''
+      
     };
   },
-  methods:{
-    addcart(item){
-      this.cart.push(item)
-      this.numcart = this.cart.length
-      // console.log(this.cart);
+  computed: {
+    currentCart() {
+      return JSON.parse(localStorage.getItem('project_cart'))
     }
 
   },
+  methods:{
+    addcart(item){
+      console.log(item)
+      this.cart.push(item)
+      var checkcart = []
+      checkcart = localStorage.getItem('project_cart')
+      if(!checkcart){
+        var project_cart = ['']
+        this.numcart = project_cart.length
+      }else{
+        
+        project_cart = JSON.parse(localStorage.getItem('project_cart'));
+        console.log(project_cart)
+        this.numcart = project_cart.length
+
+      }
+      project_cart.push(item)
+      localStorage.setItem("project_cart",JSON.stringify(project_cart));
+    }
+  },
   mounted() {
     ProductService.getProduct().then((responnse) => {
-      // console.log(responnse.data);
-      this.productlist = responnse.data;
+    this.productlist = responnse.data;
     });
   },
 };
