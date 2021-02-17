@@ -28,19 +28,18 @@
         >
           <p>{{ productlists.name }}</p>
 
-          <b-card-text> ปี 1996 </b-card-text>
+          <b-card-text> {{productlists.price}} ฿</b-card-text>
               จำนวน
               <b-badge variant="light"
                 >{{ productlists.qty }}
                 <span class="sr-only">unread messages</span></b-badge
               >
-         
           <v-btn color="success" @click.prevent="addcart(productlists)" variant="outline-primary">
           
                   <v-icon  font-scale="1">mdi-cart-plus</v-icon></v-btn>
         </b-card>
       </div>
-      {{currentCart}}
+      {{cart}}
    
     </div>
   </div>
@@ -52,7 +51,8 @@ export default {
     return {
       productlist: "",
       cart:[],
-      numcart:''
+      numcart:'',
+      cartlist:[]
       
     };
   },
@@ -75,6 +75,8 @@ export default {
         
         project_cart = JSON.parse(localStorage.getItem('project_cart'));
         console.log(project_cart)
+        // this.cartlist.push(project_cart)
+
         this.numcart = project_cart.length
 
       }
