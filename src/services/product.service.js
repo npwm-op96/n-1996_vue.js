@@ -7,6 +7,5 @@ class Productservice{
         return axios.get(API_URL,authHeader);
 
     }
-    
 }
 export default new Productservice

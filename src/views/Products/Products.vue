@@ -4,18 +4,15 @@
   <v-col class="col-4"></v-col>
   <v-col class="col-4"></v-col>
   <v-col class="col-4">
-  <v-icon large class="">mdi-basket</v-icon>
-  {{numcart}}
+  
+  <cart/>
   </v-col>
-
-
   </v-row>
-    <h2>รายการสินค้า {{numcart}}</h2>
+    
     <br>
     <div class="row">
-      <div
-        class="col-lg-2 col-md-3 col-sm-4 col-xs-3"
-        v-for="(productlists, index) in productlist"
+      <div class="col-lg-2 col-md-3 col-sm-4 col-xs-3"
+        v-for="(product, index) in this.$store.getters['product/fetchproduct']"
         :key="index"
       >
         <b-card
@@ -26,68 +23,77 @@
           style="max-width: 15rem"
           class="mb-2"
         >
-          <p>{{ productlists.name }}</p>
+          <p>{{ product.name }}</p>
 
-          <b-card-text> {{productlists.price}} ฿</b-card-text>
+          <b-card-text> {{product.price}} ฿</b-card-text>
               จำนวน
               <b-badge variant="light"
-                >{{ productlists.qty }}
+                >{{ product.qty }}
                 <span class="sr-only">unread messages</span></b-badge
               >
-          <v-btn color="success" @click.prevent="addcart(productlists)" variant="outline-primary">
+          <v-btn color="success" @click.prevent="addcart(product)" variant="outline-primary">
           
                   <v-icon  font-scale="1">mdi-cart-plus</v-icon></v-btn>
         </b-card>
       </div>
-      {{cart}}
    
     </div>
   </div>
 </template>
 <script>
-import ProductService from "../../services/product.service";
+import Cart from './Cart.vue';
+
 export default {
+      name: 'Product',
+    components: {
+      Cart
+    },
+
   data() {
     return {
-      productlist: "",
       cart:[],
-      numcart:'',
-      cartlist:[]
-      
     };
   },
   computed: {
-    currentCart() {
-      return JSON.parse(localStorage.getItem('project_cart'))
-    }
+    // currentCart() {
+    //   return JSON.parse(localStorage.getItem('project_cart'))
+    // }
 
   },
   methods:{
-    addcart(item){
-      console.log(item)
-      this.cart.push(item)
-      var checkcart = []
-      checkcart = localStorage.getItem('project_cart')
-      if(!checkcart){
-        var project_cart = ['']
-        this.numcart = project_cart.length
-      }else{
-        
-        project_cart = JSON.parse(localStorage.getItem('project_cart'));
-        console.log(project_cart)
-        // this.cartlist.push(project_cart)
+    getproduct(){
+      this.$store.dispatch('product/getProduct')
 
-        this.numcart = project_cart.length
-
-      }
-      project_cart.push(item)
-      localStorage.setItem("project_cart",JSON.stringify(project_cart));
+    },
+    addcart(product){
+      this.$store.dispatch('cart/addcart',product)
     }
+    // addcart(item){
+    //   console.log(item)
+    //   this.cart.push(item)
+    //   var checkcart = []
+    //   checkcart = localStorage.getItem('project_cart')
+    //   if(!checkcart){
+    //     var project_cart = ['']
+    //     this.numcart = project_cart.length
+    //   }else{
+        
+    //     project_cart = JSON.parse(localStorage.getItem('project_cart'));
+    //     console.log(project_cart)
+    //     // this.cartlist.push(project_cart)
+
+    //     this.numcart = project_cart.length
+
+    //   }
+    //   project_cart.push(item)
+    //   localStorage.setItem("project_cart",JSON.stringify(project_cart));
+    // }
   },
   mounted() {
-    ProductService.getProduct().then((responnse) => {
-    this.productlist = responnse.data;
-    });
+    this.getproduct()
+    // ProductService.getProduct().then((responnse) => {
+    // this.productlist = responnse.data;
+    // });
   },
 };
 </script>

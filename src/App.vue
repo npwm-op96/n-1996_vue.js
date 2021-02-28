@@ -9,12 +9,8 @@
           <router-link to="/home" class="nav-link">
             <font-awesome-icon icon="home" />Home
           </router-link>
-          <router-link v-if="showAdminBoard" to="/admin"  class="nav-link">Admin Board</router-link>
-          <router-link v-if="showModeratorBoard" to="/mod" class="nav-link">Moderator Board</router-link>
           <router-link v-if="currentUser" to="/user" class="nav-link">User</router-link>
           <router-link v-if="currentUser" to="/product" class="nav-link">Product</router-link>
-
-
           <v-spacer></v-spacer>
           <router-link v-if="currentUser" to="/profile" class="nav-link">
             <font-awesome-icon icon="user" />
@@ -51,10 +47,10 @@
               <!-- @{{member.logged_in_user.name}} -->
               <v-list-item-content>
                 <v-list-item-title class="title">
-                  Sandra Adams
+                   
                 </v-list-item-title>
                 <v-list-item-subtitle
-                  >sandra_a88@gmail.com</v-list-item-subtitle
+                  ></v-list-item-subtitle
                 >
               </v-list-item-content>
             </v-list-item>
@@ -63,7 +59,7 @@
           <v-divider></v-divider>
 
           <v-list nav dense>
-            <router-link to="/Productmenament">
+            <router-link to="/ProductManagement">
               <v-list-item link>
                 <v-list-item-icon><v-icon>mdi-beer</v-icon></v-list-item-icon>
                 <v-list-item-title>Product Managment</v-list-item-title>
