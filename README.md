@@ -1,5 +1,8 @@
 # n-1996
 
+<p align="center"><img src="https://imgur.com/jpZ8KHZ" width="80%" alt="" /></p>
+
+
 ## Project setup
 ```
 npm install
