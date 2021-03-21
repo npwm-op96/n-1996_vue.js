@@ -1,21 +1,25 @@
 <template>
-  <div class="col-12 text-center">
-  <v-row >
-  <v-col class="col-4"></v-col>
-  <v-col class="col-4"></v-col>
-  <v-col class="col-4">
-  
-  <cart/>
-  </v-col>
-  </v-row>
-    
-    <br>
-    <div class="row">
-      <div class="col-lg-2 col-md-3 col-sm-4 col-xs-3"
+  <v-col class="col-12 text-center">
+    <v-row>
+      <v-col class="col-4"></v-col>
+      <v-col class="col-4"></v-col>
+      <v-col class="col-4">
+        <cart />
+      </v-col>
+    </v-row>
+
+    <br />
+    <v-row>
+      <v-col
+        lg="2"
+        xs="12"
+        md="3"
         v-for="(product, index) in this.$store.getters['product/fetchproduct']"
         :key="index"
       >
-        <b-card
+                
+
+        <v-card
           img-src="https://cdn.shopify.com/s/files/1/0066/2791/7914/products/Jameson20CL_1024x1024.jpg?v=1607305632"
           img-alt="Image"
           img-top
@@ -23,51 +27,53 @@
           style="max-width: 15rem"
           class="mb-2"
         >
-          <p>{{ product.name }}</p>
+        <v-col class="bg-gd-name">
+        <h4>{{ product.name }}</h4>
+        </v-col>
+          <v-img height="400" :src="product.img"> </v-img>
 
-          <b-card-text> {{product.price}} ฿</b-card-text>
-              จำนวน
-              <b-badge variant="light"
-                >{{ product.qty }}
-                <span class="sr-only">unread messages</span></b-badge
-              >
-          <v-btn color="success" @click.prevent="addcart(product)" variant="outline-primary">
-          
-                  <v-icon  font-scale="1">mdi-cart-plus</v-icon></v-btn>
-        </b-card>
-      </div>
-   
-    </div>
-  </div>
+          <v-card-text> {{ product.price }} ฿</v-card-text>
+          จำนวน
+          {{ product.qty }}
+        </v-card>
+        <v-btn
+          fab
+          class="btn-cart-gd"
+          @click.prevent="addcart(product)"
+          variant="outline-primary"
+        >
+          <v-icon font-scale="1">mdi-cart-plus</v-icon></v-btn
+        >
+      </v-col>
+    </v-row>
+  </v-col>
 </template>
 <script>
-import Cart from './Cart.vue';
+import Cart from "./Cart.vue";
 
 export default {
-      name: 'Product',
-    components: {
-      Cart
-    },
+  name: "Product",
+  components: {
+    Cart,
+  },
 
   data() {
     return {
-      cart:[],
+      cart: [],
     };
   },
   computed: {
     // currentCart() {
     //   return JSON.parse(localStorage.getItem('project_cart'))
     // }
-
   },
-  methods:{
-    getproduct(){
-      this.$store.dispatch('product/getProduct')
-
+  methods: {
+    getproduct() {
+      this.$store.dispatch("product/getProduct");
     },
-    addcart(product){
-      this.$store.dispatch('cart/addcart',product)
-    }
+    addcart(product) {
+      this.$store.dispatch("cart/addcart", product);
+    },
     // addcart(item){
     //   console.log(item)
     //   this.cart.push(item)
@@ -77,7 +83,7 @@ export default {
     //     var project_cart = ['']
     //     this.numcart = project_cart.length
     //   }else{
-        
+
     //     project_cart = JSON.parse(localStorage.getItem('project_cart'));
     //     console.log(project_cart)
     //     // this.cartlist.push(project_cart)
@@ -90,10 +96,22 @@ export default {
     // }
   },
   mounted() {
-    this.getproduct()
+    this.getproduct();
+    console.log(this.$store.getters["product/fetchproduct"]);
     // ProductService.getProduct().then((responnse) => {
     // this.productlist = responnse.data;
     // });
   },
 };
 </script>
+<style scoped>
+.btn-cart-gd{
+background: rgb(212,154,8);
+background: radial-gradient(circle, rgba(212,154,8,1) 23%, rgba(233,231,226,1) 36%, rgba(199,148,13,1) 40%);
+}
+.bg-gd-name{
+  background: rgb(204,146,83);
+  color: azure;
+background: radial-gradient(circle, rgba(204,146,83,1) 44%, rgba(204,146,83,1) 44%);
+}
+</style>

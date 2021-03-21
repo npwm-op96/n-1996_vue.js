@@ -1,16 +1,26 @@
 <template>
   <div id="app">
-  
     <v-app>
       <v-card height="100%" width="100%">
-        <v-app-bar color="#0D47A1" dense flat>
-          <v-app-bar-nav-icon color="white"
-            @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-app-bar
+          src="https://c0.wallpaperflare.com/preview/669/391/825/lloret-de-mar-spain-guiness-bar.jpg"
+          color="#0D47A1"
+          dense
+          flat
+        >
+          <v-app-bar-nav-icon
+            color="white"
+            @click="sidebar"
+          ></v-app-bar-nav-icon>
           <router-link to="/home" class="nav-link">
             <font-awesome-icon icon="home" />Home
           </router-link>
-          <router-link v-if="currentUser" to="/user" class="nav-link">User</router-link>
-          <router-link v-if="currentUser" to="/product" class="nav-link">Product</router-link>
+          <router-link v-if="currentUser" to="/user" class="nav-link"
+            >User</router-link
+          >
+          <router-link v-if="currentUser" to="/product" class="nav-link"
+            >Product</router-link
+          >
           <v-spacer></v-spacer>
           <router-link v-if="currentUser" to="/profile" class="nav-link">
             <font-awesome-icon icon="user" />
@@ -27,54 +37,12 @@
           </a>
         </v-app-bar>
 
-        <v-navigation-drawer
-          v-model="drawer"
-          absolute
-          temporary
-          height="100%"
-          color="dark"
-        >
-          <v-list>
-            <v-list-item class="px-2">
-              <v-list-item-avatar>
-                <v-img
-                  src="https://randomuser.me/api/portraits/women/85.jpg"
-                ></v-img>
-              </v-list-item-avatar>
-            </v-list-item>
 
-            <v-list-item link>
-              <!-- @{{member.logged_in_user.name}} -->
-              <v-list-item-content>
-                <v-list-item-title class="title">
-                   
-                </v-list-item-title>
-                <v-list-item-subtitle
-                  ></v-list-item-subtitle
-                >
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-
-          <v-divider></v-divider>
-
-          <v-list nav dense>
-            <router-link to="/ProductManagement">
-              <v-list-item link>
-                <v-list-item-icon><v-icon>mdi-beer</v-icon></v-list-item-icon>
-                <v-list-item-title>Product Managment</v-list-item-title>
-              </v-list-item>
-            </router-link>
-          </v-list>
-          <v-switch label="Light Mode" v-model="$vuetify.theme.dark"></v-switch>
-        </v-navigation-drawer>
-
+        <SidebarVue :currentUser="currentUser" ref="SidebarVue"/>
+        
         <v-card-text>
           <v-main color="primary" lights-out>
-            <router-view>
-            
-            
-            </router-view>
+            <router-view> </router-view>
           </v-main>
         </v-card-text>
       </v-card>
@@ -89,9 +57,13 @@
 </template>
 
 <script>
+import SidebarVue from './components/Sidebar.vue';
 export default {
+  components:{
+    SidebarVue
+  },
   data: () => ({
-    drawer: false,
+    // drawer: true,
     group: null,
   }),
   computed: {
@@ -114,6 +86,9 @@ export default {
     },
   },
   methods: {
+    sidebar(){
+      this.$refs.SidebarVue.opensidebar()
+    },
     logOut() {
       this.$store.dispatch("auth/logout");
       this.$router.push("/login");
@@ -122,10 +97,14 @@ export default {
 };
 </script>
 <style scoped>
-  .nav-link{
-    color: white;
-  }
-  router-link{
-    text-decoration: none !important;
+.nav-link {
+  color: white;
 }
+.v-list-item:hover{
+  background-color: #7cd0db;
+}
+</style>
+<style lang="sass" scoped>
+.v-list-item .on-hover.theme--dark
+  background-color: rgba(#FFF, 0.8)
 </style>

@@ -66,8 +66,6 @@ export default {
         return{
             listcart:[],
             total:0
-
-            
         }
     },
     watch:{},

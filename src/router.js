@@ -5,6 +5,7 @@ import Login from './views/Login.vue';
 import Register from './views/Register.vue';
 import Product from './views/Products/Products.vue';
 import ProductManagement from './views/Products/ProductManagement.vue';
+import Bill_list from './views/Bill/Bill_list.vue';
 
 
 Vue.use(Router);
@@ -37,6 +38,10 @@ export const router = new Router({
     {
       path :'/ProductManagement',
       component:ProductManagement
+    },
+    {
+      path :'/Bill',
+      component:Bill_list
     },
     {
       path: '/profile',
