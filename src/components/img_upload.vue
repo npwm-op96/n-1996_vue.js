@@ -5,8 +5,10 @@
       <v-carousel-item
         v-for="(item, i) in picture_cal"
         :key="i"
+        contain
         :src="item.src"
-      ></v-carousel-item>
+      >      
+</v-carousel-item>
     </v-carousel>
         </v-card>
 
@@ -46,6 +48,8 @@ export default {
   data: () => {
     return {
       picture_cal: [],
+      img_base64:[],
+      base64:[],
       isSelecting: null,
 
       img_rules: [
@@ -79,11 +83,25 @@ export default {
         var img = {
           src: event.target.result,
         };
+        
+   
         this.picture_cal.push(img);
+        console.log()
+        // this.img_base64.push(base64);
+  
+
+
+
+        // this.img.push((img))
       };
+      this.img_base64 = this.picture_cal
       reader.readAsDataURL(e.target.files[0]);
-      console.log(this.picture_cal);
+      console.log(this.img_base64);
+      // console.log(atob(this.img_base64))
     },
+    // img(){
+
+    // }
   },
 };
 </script>

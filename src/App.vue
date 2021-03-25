@@ -8,7 +8,7 @@
           dense
           flat
         >
-          <v-app-bar-nav-icon
+          <v-app-bar-nav-icon v-if="Admin"
             color="white"
             @click="sidebar"
           ></v-app-bar-nav-icon>
@@ -20,6 +20,9 @@
           >
           <router-link v-if="currentUser" to="/product" class="nav-link"
             >Product</router-link
+          >
+              <router-link v-if="currentUser" to="/Bill" class="nav-link"
+            >BILL</router-link
           >
           <v-spacer></v-spacer>
           <router-link v-if="currentUser" to="/profile" class="nav-link">
@@ -70,20 +73,20 @@ export default {
     currentUser() {
       return this.$store.state.auth.user;
     },
-    showAdminBoard() {
+    Admin() {
       if (this.currentUser && this.currentUser.roles) {
         return this.currentUser.roles.includes("ROLE_ADMIN");
       }
 
       return false;
     },
-    showModeratorBoard() {
-      if (this.currentUser && this.currentUser.roles) {
-        return this.currentUser.roles.includes("ROLE_MODERATOR");
-      }
+    // showModeratorBoard() {
+    //   if (this.currentUser && this.currentUser.roles) {
+    //     return this.currentUser.roles.includes("ROLE_MODERATOR");
+    //   }
 
-      return false;
-    },
+    //   return false;
+    // },
   },
   methods: {
     sidebar(){
